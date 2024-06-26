@@ -18,6 +18,22 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
-camera.position.setX(-3);
 
 renderer.render(scene, camera);
+
+//CREATING AN OBJECT
+
+const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const material = new THREE.MeshBasicMaterial({
+  color: 0xff6347,
+  wireframe: true,
+});
+const torus = new THREE.Mesh(geometry, material);
+
+scene.add(torus);
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
