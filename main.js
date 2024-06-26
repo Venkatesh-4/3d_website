@@ -2,6 +2,8 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+// Setup
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
@@ -18,10 +20,11 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
+camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
-//CREATING AN OBJECT
+// Torus
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
@@ -29,20 +32,21 @@ const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
 
-//ADDING LIGHT
+// Lights
+
 const pointLight = new THREE.PointLight(0xffffff);
-// const pointLight = new THREE.DirectionalLight(0xffffff, 1);
 pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
-// HELPERS
-const lightHelper = new THREE.PointLightHelper(pointLight);
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper);
+// Helpers
 
-const controls = new OrbitControls(camera, renderer.domElement);
+// const lightHelper = new THREE.PointLightHelper(pointLight)
+// const gridHelper = new THREE.GridHelper(200, 50);
+// scene.add(lightHelper, gridHelper)
+
+// const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -59,31 +63,30 @@ function addStar() {
 
 Array(200).fill().forEach(addStar);
 
-// BACKGROUND
-const loader = new THREE.TextureLoader();
-const spaceTexture = loader.load("images/space.jpg");
+// Background
+
+const spaceTexture = new THREE.TextureLoader().load("images/space.jpg");
 spaceTexture.colorSpace = THREE.SRGBColorSpace;
 scene.background = spaceTexture;
 
-// AVATAR
+// Avatar
 
-const HarambeTexture = new THREE.TextureLoader().load(
+const harambeTexture = new THREE.TextureLoader().load(
   "images/Harambe-angel.jpg"
 );
 
 const harambe = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
-  new THREE.MeshBasicMaterial({ map: HarambeTexture })
+  new THREE.MeshBasicMaterial({ map: harambeTexture })
 );
 
 scene.add(harambe);
 
-// MOON
+// Moon
 
-const moonTexture = loader.load("images/moon.jpg");
+const moonTexture = new THREE.TextureLoader().load("images/moon.jpg");
 moonTexture.colorSpace = THREE.SRGBColorSpace;
-const normalTexture = loader.load("images/normal.jpg");
-// normalTexture.colorSpace = THREE.SRGBColorSpace;
+const normalTexture = new THREE.TextureLoader().load("images/normal.jpg");
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
@@ -100,6 +103,8 @@ moon.position.setX(-10);
 
 harambe.position.z = -5;
 harambe.position.x = 2;
+
+// Scroll Animation
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
@@ -118,6 +123,8 @@ function moveCamera() {
 document.body.onscroll = moveCamera;
 moveCamera();
 
+// Animation Loop
+
 function animate() {
   requestAnimationFrame(animate);
 
@@ -125,7 +132,11 @@ function animate() {
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
 
-  controls.update();
+  moon.rotation.x += 0.005;
+
+  // controls.update();
+
   renderer.render(scene, camera);
 }
+
 animate();
