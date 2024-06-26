@@ -31,6 +31,7 @@ scene.add(torus);
 
 //ADDING LIGHT
 const pointLight = new THREE.PointLight(0xffffff);
+// const pointLight = new THREE.DirectionalLight(0xffffff, 1);
 pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
@@ -82,7 +83,7 @@ scene.add(harambe);
 const moonTexture = loader.load("images/moon.jpg");
 moonTexture.colorSpace = THREE.SRGBColorSpace;
 const normalTexture = loader.load("images/normal.jpg");
-normalTexture.colorSpace = THREE.SRGBColorSpace;
+// normalTexture.colorSpace = THREE.SRGBColorSpace;
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
@@ -93,6 +94,12 @@ const moon = new THREE.Mesh(
 );
 
 scene.add(moon);
+
+moon.position.z = 30;
+moon.position.setX(-10);
+
+harambe.position.z = -5;
+harambe.position.x = 2;
 
 function animate() {
   requestAnimationFrame(animate);
