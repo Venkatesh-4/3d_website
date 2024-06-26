@@ -37,24 +37,11 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
 // HELPERS
-
 const lightHelper = new THREE.PointLightHelper(pointLight);
 const gridHelper = new THREE.GridHelper(200, 50);
 scene.add(lightHelper, gridHelper);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  torus.rotation.x += 0.01;
-  torus.rotation.y += 0.005;
-  torus.rotation.z += 0.01;
-
-  controls.update();
-  renderer.render(scene, camera);
-}
-animate();
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -70,3 +57,21 @@ function addStar() {
 }
 
 Array(200).fill().forEach(addStar);
+
+// BACKGROUND
+const loader = new THREE.TextureLoader();
+const spaceTexture = loader.load("images/space.jpg");
+spaceTexture.colorSpace = THREE.SRGBColorSpace;
+scene.background = spaceTexture;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  torus.rotation.x += 0.01;
+  torus.rotation.y += 0.005;
+  torus.rotation.z += 0.01;
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
