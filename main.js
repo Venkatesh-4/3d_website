@@ -77,6 +77,23 @@ const harambe = new THREE.Mesh(
 
 scene.add(harambe);
 
+// MOON
+
+const moonTexture = loader.load("images/moon.jpg");
+moonTexture.colorSpace = THREE.SRGBColorSpace;
+const normalTexture = loader.load("images/normal.jpg");
+normalTexture.colorSpace = THREE.SRGBColorSpace;
+
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({
+    map: moonTexture,
+    normalMap: normalTexture,
+  })
+);
+
+scene.add(moon);
+
 function animate() {
   requestAnimationFrame(animate);
 
