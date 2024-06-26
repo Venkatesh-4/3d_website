@@ -64,6 +64,19 @@ const spaceTexture = loader.load("images/space.jpg");
 spaceTexture.colorSpace = THREE.SRGBColorSpace;
 scene.background = spaceTexture;
 
+// AVATAR
+
+const HarambeTexture = new THREE.TextureLoader().load(
+  "images/Harambe-angel.jpg"
+);
+
+const harambe = new THREE.Mesh(
+  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.MeshBasicMaterial({ map: HarambeTexture })
+);
+
+scene.add(harambe);
+
 function animate() {
   requestAnimationFrame(animate);
 
