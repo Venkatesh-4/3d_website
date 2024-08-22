@@ -65,16 +65,14 @@ Array(200).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load(
-  "/public/static/images/space.jpg"
-);
+const spaceTexture = new THREE.TextureLoader().load("/static/images/space.jpg");
 spaceTexture.colorSpace = THREE.SRGBColorSpace;
 scene.background = spaceTexture;
 
 // Avatar
 
 const harambeTexture = new THREE.TextureLoader().load(
-  "/public/static/images/Harambe-angel.jpg"
+  "/static/images/Harambe-angel.jpg"
 );
 
 const harambe = new THREE.Mesh(
@@ -86,12 +84,10 @@ scene.add(harambe);
 
 // Moon
 
-const moonTexture = new THREE.TextureLoader().load(
-  "/public/static/images/moon.jpg"
-);
+const moonTexture = new THREE.TextureLoader().load("/static/images/moon.jpg");
 moonTexture.colorSpace = THREE.SRGBColorSpace;
 const normalTexture = new THREE.TextureLoader().load(
-  "/public/static/images/normal.jpg"
+  "/static/images/normal.jpg"
 );
 
 const moon = new THREE.Mesh(
